@@ -19,6 +19,7 @@ namespace SimpleTimer
         public Alarm(int minutes, int seconds)
         {
             InitializeComponent();
+            moveToCorner();
 
             GlowingLabelTimer = new Timer();
             GlowingLabelTimer.Interval = (100); //0.05 seconds
@@ -57,11 +58,14 @@ namespace SimpleTimer
 
         private void TimeoutHandler(object sender, EventArgs e)
         {
-            this.Location = new Point(CalculateWindowX(), 10);
-
             this.Show();
             GlowingLabelTimer.Start();
             ExpiryTimer.Stop();
+        }
+
+        private void moveToCorner()
+        {
+            this.Location = new Point(CalculateWindowX(), 10);
         }
 
         private int CalculateWindowX()

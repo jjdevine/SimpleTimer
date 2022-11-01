@@ -16,10 +16,13 @@ namespace SimpleTimer
 
         Timer GlowingLabelTimer;
 
-        public Alarm(int minutes, int seconds)
+        public Alarm(int minutes, int seconds, String text)
         {
             InitializeComponent();
             moveToCorner();
+
+            lMessage.Text = text;
+            tbMessage.Text = text;
 
             GlowingLabelTimer = new Timer();
             GlowingLabelTimer.Interval = (100); //0.05 seconds
@@ -48,6 +51,7 @@ namespace SimpleTimer
 
         private void begin(int minutes, int seconds)
         {
+            lMessage.Text = tbMessage.Text;
             ExpiryTimer = new Timer();
             ExpiryTimer.Interval = ((seconds * 1000) + (minutes * 1000 * 60));
             ExpiryTimer.Tick += new EventHandler(TimeoutHandler);
@@ -91,6 +95,15 @@ namespace SimpleTimer
 
         private void tbAgain_KeyDown(object sender, KeyEventArgs e)
         {
+            processKeyDown(sender, e);
+        }
+        private void tbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            processKeyDown(sender, e);
+        }
+
+        private void processKeyDown(object sender, KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -99,6 +112,7 @@ namespace SimpleTimer
                 e.Handled = true;
             }
         }
+
         private void LabelChangeTimeout(object sender, EventArgs e)
         {
             SetLabelColour();
@@ -130,10 +144,12 @@ namespace SimpleTimer
 
             int colorOffset = 25 * LabelIteration;
 
-            label1.ForeColor = Color.FromArgb(
+            lMessage.ForeColor = Color.FromArgb(
                 colorOffset,
                 255,
                 0);
         }
+
+
     }
 }

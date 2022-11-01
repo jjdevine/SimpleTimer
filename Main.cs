@@ -29,7 +29,7 @@ namespace SimpleTimer
         private void go()
         {
             int[] tokens = Utils.ParseTime(textBox1.Text);
-            new Alarm(tokens[0], tokens[1]);
+            new Alarm(tokens[0], tokens[1], textBox2.Text);
             this.Hide();
         }
 
